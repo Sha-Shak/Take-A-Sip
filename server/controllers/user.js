@@ -22,8 +22,10 @@ async function register(req, res) {
       lastName: req.body.lastName,
       designation: req.body.designation,
       email: req.body.email,
+      username: req.body.username,
       password: await bcrypt.hash(password, 8)
     });
+    console.log("first", newUser)
     const { _id } = await newUser.save();
     const accessToken = jwt.sign({ _id }, secret, { expiresIn: "7d" });
     res.setHeader("Authorization", "Bearer " + accessToken);
